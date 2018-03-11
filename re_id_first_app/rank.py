@@ -2,8 +2,6 @@ import scipy.io as si
 import os
 import sys
 import numpy as np
-# import matplotlib.pyplot as plt
-# import matplotlib.image as mpimg
 
 
 def rank_save(img_dir):
