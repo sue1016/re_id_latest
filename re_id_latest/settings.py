@@ -25,7 +25,7 @@ SECRET_KEY = '(42jcaf0qu3(n7a0g$x%e!fc_^60a=4_l6l9w81svk$pkq-!ws'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['18.222.73.102', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['18.222.73.102', 'localhost', '127.0.0.1', 'personreidonline.com']
 
 
 # Application definition

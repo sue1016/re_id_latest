@@ -17,13 +17,19 @@ def rank_save(img_dir):
     # img_dir = input("Input the dir of your image:")
     print(os.path.join(query_dir, img_dir))
     if os.path.exists(os.path.join(query_dir, img_dir)):
-        pos = os.listdir(query_dir).index(img_dir)
+        print("jpg file exists")
+        curdir = os.listdir(query_dir)
+        curdir.sort()
+        pos = curdir.index(img_dir)
+        print('jpg file position: ', pos)
         # print("position"+ pos)
         score = np.dot(gallery_feature, query_feature[pos])
         index = np.argsort(score)
         index = index[::-1]
         best_index = []
-        gallery_imgs = os.listdir(gallery_dir)
+        result_dir = os.listdir(gallery_dir)
+        result_dir.sort()
+        gallery_imgs = result_dir
         for i in range(10):
             best_index.append(gallery_imgs[index[i + 1]])
         f = open("matching_info.txt", 'w')
