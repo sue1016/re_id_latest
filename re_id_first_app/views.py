@@ -22,6 +22,7 @@ def img_proc(request):
                 cnt = 0
                 rawContent = f.read()
                 rawContent = rawContent.split(' ')
+                datalist.append("image/Market-1501-v15.09.15/query/" + img_dir)
                 for line in rawContent:
                     cnt = cnt + 1
                     final_dir = ("image/Market-1501-v15.09.15/bounding_box_test/" + line)
@@ -31,8 +32,10 @@ def img_proc(request):
                     datalist.append(d)
                     if cnt >= 10:
                         break
+                print("data_list:", datalist)
 
-    return render(request, 're_id_first_app/re_id.html', {'data': datalist})
+
+    return render(request, 're_id_first_app/backuo.html', {'data': datalist})
 
 
 def home(request):

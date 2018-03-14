@@ -1,0 +1,167 @@
+{% load  static %}
+<!doctype html>
+<html lang="en">
+    
+    
+  <head>
+      
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    
+    
+    <style type='text/css'>
+    
+    #infoContainer{
+        margin-left:80px;
+        margin-top:40px;
+        margin-bottom:60px;
+    }
+    #placeholderImg{
+        width:550px;
+
+    }
+    #placeholderImgContainer{
+    	margin-top:30px;
+        margin-left:80px;
+        height:inherit;
+        opacity:1;
+    }
+    
+    #smallInfo{
+        color:#646464;
+        font-size:18px;
+        margin-left:7px;
+    }
+    
+    #bigInfo{
+        font-size:65px;
+    }
+    #placeholderImgInfo{
+       font-size:10px;
+       margin-left: 130px;  
+    }
+
+    #inputDiv{
+    	margin-left:102px;
+    	margin-top:30px;
+    
+    }
+    #galleryDiv{
+    	height:500px;
+    	width:250px;
+        margin-top:200px;
+    	margin-left:200px;
+      
+    }
+
+
+    </style>
+    
+    
+    <title>Person-reid</title>
+    
+    
+  </head>
+  <body>
+
+    <nav class="navbar navbar-dark bg-dark">
+		<!-- Navbar content -->
+			<a class="navbar-brand" href="#">Person re-ID</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">About <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Upload your videos</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							re-ID now
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">return images</a>
+							<a class="dropdown-item" href="#">find in video</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">online mode</a>
+						</div>
+					</li>
+
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<button id='submitButton' class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+				</form>
+			</div>
+	
+	</nav>
+
+    <div class="container-fluid" id='infoContainer'>
+        <h1 id='bigInfo'>Upload a query picture to reid</h1>
+        <p id='smallInfo'>and the gallery will show you the top10 ranking picture...
+    </div>
+  
+    <div id='inputDiv'>
+        <form action="/re_id/" method="GET">
+            {% csrf_token %}
+            <input type="text" name="img_dir">
+            <input type="submit" value="Submit the dir" class="btn btn-secondary" id="uploadButton">
+            <input type="text" name="img_dir" placeholder="eg:0001_c1s1_001051_00.jpg">
+        </form>
+    </div>
+
+    
+  <div class="container-fluid" id='placeholderImgContainer'>
+
+      <!--注意下面一行里的SRC要改成静态图片的 -->
+
+      <img id='placeholderImg' class="card-img" src="{% static "image/placeholderImg.jpg"%}" alt="Card image">
+      <p id='placeholderImgInfo'>--some reid results to show you first--</p>
+
+  </div>
+<div class="container-fluid" id='galleryDiv'></div>
+        
+
+     <script type="text/javascript">
+ 
+
+
+$( "#uploadButton" ).click(function() {
+   
+   $("#inputDiv").html("");
+   //注意下面一行里的第二个SRC要改成静态图片的，第一个图片也是，但是是用户输入的图片
+   $( "#placeholderImgContainer" ).html("<div class='container-fluid'><div id='resultsImgsDiv'><img src={{ data.0}} class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static "image/jiantou.png" %}' id='arrowImg' class='rounded float-left' alt='Responsive image'><img src='{% static data.1.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.2.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.3.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.4.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.5.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.6.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.7.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.8.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.9.dir %}' class='queryImgs rounded float-left' alt='Responsive image'></div>");
+   $( "#placeholderImgContainer" ).css("margin-left","80px");
+   $( "#placeholderImgContainer" ).css("margin-top","50px");
+   $( "#placeholderImgContainer" ).css("margin-bottom","50px");
+   $(".queryImgs").css("height","100px");
+   $(".queryImgs").css("width","50px");
+   $(".queryImgs").css("float","left");
+   $(".queryImgs").css("border","2px solid black");
+   $("#arrowImg").css("height","50px");
+   $("#arrowImg").css("float","left");
+   $("#arrowImg").css("margin-top","25px");
+   $("#galleryDiv").html("<div id='carouselExampleIndicators' class='carousel slide' data-ride='carousel'><ol class='carousel-indicators'><li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li><li data-target='#carouselExampleIndicators' data-slide-to='1'></li><li data-target='#carouselExampleIndicators' data-slide-to='2'></li><li data-target='#carouselExampleIndicators' data-slide-to='3'></li><li data-target='#carouselExampleIndicators' data-slide-to='4'></li><li data-target='#carouselExampleIndicators' data-slide-to='5'></li><li data-target='#carouselExampleIndicators' data-slide-to='6'></li><li data-target='#carouselExampleIndicators' data-slide-to='7'></li><li data-target='#carouselExampleIndicators' data-slide-to='8'></li></ol><div class='carousel-inner'><div class='carousel-item active'><img class='d-block w-100' src='{% static data.0.dir %}' alt='First slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.1.dir %}' alt='Second slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.2.dir %}' alt='Third slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.3.dir %}' alt='Forth slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.4.dir %}' alt='Fifth slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.5.dir %}' alt='Sixth slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.6.dir %}' alt='Seventh slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.7.dir %}' alt='Eighth slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.8.dir %}' alt='Ninth slide'></div><div class='carousel-item'><img class='d-block w-100' src='{% static data.9.dir %}' alt='Tenth slide'></div></div><a class='carousel-control-prev' href='#carouselExampleIndicators' role='button' data-slide='prev'><span class='carousel-control-prev-icon' aria-hidden='true'></span><span class='sr-only'>Previous</span></a><a class='carousel-control-next' href='#carouselExampleIndicators' role='button' data-slide='next'><span class='carousel-control-next-icon' aria-hidden='true'></span><span class='sr-only'>Next</span></a></div>");
+});
+     </script>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>

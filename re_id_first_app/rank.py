@@ -30,7 +30,6 @@ def rank_save(img_dir):
         result_dir = os.listdir(gallery_dir)
         result_dir.sort()
         gallery_imgs = result_dir
-
         for i in range(10):
             best_index.append(gallery_imgs[index[i + 1]])
         f = open("matching_info.txt", 'w')
