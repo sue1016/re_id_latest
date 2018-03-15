@@ -114,9 +114,9 @@
     <div id='inputDiv'>
         <form action="/re_id/" method="GET">
             {% csrf_token %}
-            <input type="text" name="img_dir">
-            <input type="submit" value="Submit the dir" class="btn btn-secondary" id="uploadButton">
             <input type="text" name="img_dir" placeholder="eg:0001_c1s1_001051_00.jpg">
+            <input type="submit" value="Submit the dir" class="btn btn-secondary" id="uploadButton">
+            
         </form>
     </div>
 
@@ -140,7 +140,7 @@ $( "#uploadButton" ).click(function() {
    
    $("#inputDiv").html("");
    //注意下面一行里的第二个SRC要改成静态图片的，第一个图片也是，但是是用户输入的图片
-   $( "#placeholderImgContainer" ).html("<div class='container-fluid'><div id='resultsImgsDiv'><img src={{ data.0}} class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static "image/jiantou.png" %}' id='arrowImg' class='rounded float-left' alt='Responsive image'><img src='{% static data.1.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.2.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.3.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.4.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.5.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.6.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.7.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.8.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.9.dir %}' class='queryImgs rounded float-left' alt='Responsive image'></div>");
+   $( "#placeholderImgContainer" ).html("<div class='container-fluid'><div id='resultsImgsDiv'><img src={{ data.0}} class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static \"image/jiantou.png\" %}' id='arrowImg' class='rounded float-left' alt='Responsive image'><img src='{% static data.1.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.2.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.3.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.4.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.5.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.6.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.7.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.8.dir %}' class='queryImgs rounded float-left' alt='Responsive image'><img src='{% static data.9.dir %}' class='queryImgs rounded float-left' alt='Responsive image'></div>");
    $( "#placeholderImgContainer" ).css("margin-left","80px");
    $( "#placeholderImgContainer" ).css("margin-top","50px");
    $( "#placeholderImgContainer" ).css("margin-bottom","50px");
